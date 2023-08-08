@@ -1,0 +1,2 @@
+start celery server
+celery -A core worker -l INFO
