@@ -16,13 +16,15 @@ else {
 // $('.cart').click(function () {
 $('.divpr').on('click', 'button.cart', function () {
     var idstr = this.id.toString();
-
+    
     if (cart[idstr] != undefined) {
-        cart[idstr] = cart[idstr] + 1;
+        qty = cart[idstr][0] + 1;
     }
 
     else {
-        cart[idstr] = 1;
+        qty = 1;
+        name = document.getElementById('name'+idstr).innerHTML;
+        cart[idstr] = [qty, name];
     }
 
     updateCart(cart);
@@ -41,7 +43,7 @@ function updatePopover(cart) {
     var i = 1;
     for (var item in cart) {
         popStr = popStr + "<b>" + i + "</b>. ";
-        popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 20) + "...Qty: " + cart[item] + '<br>';
+        popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 20) + "...Qty: " + cart[item][0] + '<br>';
         i = i + 1;
     }
     popStr = popStr + "</div> <a href='/shop/checkout'><button class='btn btn-primary' id='checkout'>Checkout</button></a> <button class='btn btn-primary' onclick='clearCart()' id='clearCart'>Clear Cart</button>"
@@ -63,10 +65,9 @@ function clearCart() {
 
 function updateCart(cart) {
     var sum = 0
-    for (var item in cart) {
-        console.log(item)
-        sum = sum + cart[item]
-        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''> " + cart[item] + " </span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+    for (var item in cart) {  //item = pr1, pr2 etc
+        sum = sum + cart[item][0]
+        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''> " + cart[item][0] + " </span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     document.getElementById('cart').innerHTML = sum;
@@ -76,15 +77,15 @@ function updateCart(cart) {
 // If plus or minus button is clicked, change the cart as well as the display value #44 video
 $('.divpr').on("click", "button.minus", function () {
     a = this.id.slice(7,);
-    cart['pr' + a] = cart['pr' + a] - 1;
-    cart['pr' + a] = Math.max(0, cart['pr' + a]);
-    document.getElementById('valpr' + a).innerHTML = cart['pr' + a];
+    cart['pr' + a][0] = cart['pr' + a][0] - 1;
+    cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
+    document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
     updateCart(cart);
 });
 
 $('.divpr').on("click", "button.plus", function () {
     a = this.id.slice(6,);
-    cart['pr' + a] = cart['pr' + a] + 1;
-    document.getElementById('valpr' + a).innerHTML = cart['pr' + a];
+    cart['pr' + a][0] = cart['pr' + a][0] + 1;
+    document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
     updateCart(cart);
 });
