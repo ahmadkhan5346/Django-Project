@@ -16,15 +16,19 @@ else {
 // $('.cart').click(function () {
 $('.divpr').on('click', 'button.cart', function () {
     var idstr = this.id.toString();
+    console.log('idstr',idstr)
     
     if (cart[idstr] != undefined) {
         qty = cart[idstr][0] + 1;
+        console.log('undefined', qty)
     }
 
     else {
         qty = 1;
         name = document.getElementById('name'+idstr).innerHTML;
-        cart[idstr] = [qty, name];
+        price = document.getElementById('price'+idstr).innerHTML;
+        cart[idstr] = [qty, name, parseInt(price)];
+        console.log('cart', cart);
     }
 
     updateCart(cart);

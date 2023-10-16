@@ -10,12 +10,12 @@ My Awesome Cart Tracker
         <form method="post" id="trackerForm">{% csrf_token %}
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputname">Order Id</label>
+                    <label for="orderId">Order Id</label>
                     <input type="text" class="form-control" id="orderId" name="orderId" placeholder="Order Id" />
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Email</label>
+                    <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" />
                 </div>
             </div>
@@ -29,7 +29,14 @@ My Awesome Cart Tracker
                     <li>Enter your Order Id and Email and click Track Order to find details about your order!</li> 
                 </ul>
             </div>
+
+            <h2>Your Order Details</h2>
+            <div class="my-4">
+                <ul class="list-group" id="citems"> 
+                </ul>
+            </div>
         </div>
+
     </div>
 </div>
 {% endblock body %}
@@ -53,8 +60,8 @@ My Awesome Cart Tracker
         })
 
             .done(function (data) {
-                console.log(data)
-                updates = JSON.parse(data);
+                data = JSON.parse(data)
+                updates = data[0];
                 if (updates.length > 0 & updates != {}) {
                     for (i = 0; i < updates.length; i++) {
                         let text = updates[i]['text'];
@@ -69,9 +76,21 @@ My Awesome Cart Tracker
                     mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">Sorry, We are not able to fetch this order Id and Email. Make sure to type correct order Id and Email</li>`
                     $('#items').append(mystr)
                 }
-            });
 
+                 // Fill in the order details
+                cart = JSON.parse(data[1]);
+                for (item in cart){
+                    let name = cart[item][1];
+                    let qty = cart[item][0];
+                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                        ${name}<span class="badge badge-primary badge-pill">${qty}</span>
+                    </li>`
+                    $('#citems').append(mystr)
+                }
+            });
+                
         event.preventDefault();
+        
     });
 </script>
 {% endblock js %}

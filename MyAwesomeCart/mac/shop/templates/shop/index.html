@@ -37,7 +37,7 @@
 							<div class="card-body">
 								<h6 class="card-title" id="namepr{{i.product_id}}">{{i.product_name}}</h6>
 								<p class="card-text">{{i.description|slice:'0:53'}}...</p>
-								<p class="card-text"><b>Rs.</b> {{i.price|slice:'0:53'}}...</p>
+								<p class="card-text"><b>Rs.</b> <span id="pricepr{{i.product_id}}">{{i.price}}</span></p>
 								<span id="divpr{{i.product_id}}" class="divpr">
 									<button id="pr{{i.product_id}}" class="btn btn-primary cart">Add to Cart</button>
 								</span>
