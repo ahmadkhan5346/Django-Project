@@ -14,11 +14,11 @@
 }
 
 body .carousel-indicators li{
-    background-color: rgb(192, 192, 227);
+    background-color: blue;
 }
 
 body .carousel-indicators{
-    bottom: 0;
+    bottom: -40;
 }
 
 body .carousel-control-next-icon,
