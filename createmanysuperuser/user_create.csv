@@ -1,0 +1,13 @@
+username,first_name,last_name,email,is_active,is_staff,is_superuser,password
+ahmad123,Sarfraz,Khan,sarfraz@gmail.com,1,1,1,123456'
+"ashraf123	",Ashraf,Malik,ashraf@gmail.com,1,0,1,123456'
+"sadiq123	","Sadique	","Mansoori	",sadiq@gmail.com,1,1,1,123456'
+"junaid123	","Junaid	",Chaudhry,junaid@gmail.com,0,1,1,123456'
+"sufiyan123	",Sufiyan,Khan,sufiyan@gmail.com,1,1,0,123456'
+khalid123,Khalid,Khan,khalid@gmail.com,1,1,1,123456'
+moin123,Moinuddin,Khan,moin@gmail.com,1,0,1,123456'
+rehman123,Abdurrehman,Khan,rehman@gmail.com,1,1,1,123456'
+arfan123,Arfan,Shaikh,arfan@gmail.com,1,0,0,123456'
+abdullah123,Abdullah,Ansari,abdullah@gmail.com,1,1,1,123456'
+saud123,Saud,Shaikh,saud@gmail.com,0,0,1,123456
+,,,,,,,
