@@ -1,0 +1,52 @@
+first go to pypi.org then search mkvirtualenv
+pip install virtualenvwrapper-win
+then create env command mkvirtualenv envname
+deactivate, for activating workon envname
+
+django package:
+                asgiref==3.7.2
+                Django==4.2.6
+                sqlparse==0.4.4
+                typing_extensions==4.8.0
+                tzdata==2023.3
+jwt token
+pip install djangorestframework-simplejwt
+
+ cors policy connect with frontEnd and difine in setting 
+ pip install django-cors-headers
+
+ signal:
+
+ sender: <class 'account.models.User'>
+
+ kwargs: {'signal': <django.db.models.signals.ModelSignal object at 0x0000024B8E0FA590>,
+ 'instance': <User: sarfraz8@gmail.com>, 'created': True, 'update_fields': None, 'raw': False, 'using': 'default'}
+
+ print(kwargs['instance'].__dict__)
+ {'_state': <django.db.models.base.ModelState object at 0x0000019E15981240>,
+ 'id': 13, 'password': 'pbkdf2_sha256$600000$MBPLrMcZOKCWj4oaiCsc2O$zfM43K1RwxGOqeE3vYyqQ8nU/fZAjANgryptM6MbyI8=',
+ 'last_login': None, 'email': 'sarfraz10@gmail.com', 'name': 'Sarfraz10', 'tc': True, 'is_active': True,
+ 'is_admin': False, 'created_at': datetime.datetime(2023, 10, 21, 7, 36, 9, 412515, tzinfo=datetime.timezone.utc),
+ 'updated_at': datetime.datetime(2023, 10, 21, 7, 36, 9, 412515, tzinfo=datetime.timezone.utc), '_password': '123456'}
+
+
+ request body: type of request <class 'rest_framework.request.Request'>
+ {'_request': <WSGIRequest: POST '/api/login/'>, 'parsers': [<rest_framework.parsers.JSONParser object at 0x0000022C00971630>,
+ <rest_framework.parsers.FormParser object at 0x0000022C00971690>, <rest_framework.parsers.MultiPartParser object at 0x0000022C009716C0>],
+ 'authenticators': [<rest_framework_simplejwt.authentication.JWTAuthentication object at 0x0000022C00971660>],
+ 'negotiator': <rest_framework.negotiation.DefaultContentNegotiation object at 0x0000022C00970430>,
+ 'parser_context': {'view': <account.views.login.UserLoginView object at 0x0000022C00970AC0>,
+ 'args': (), 'kwargs': {}, 'request': <rest_framework.request.Request: POST '/api/login/'>, 'encoding': 'utf-8'},
+ '_data': <class 'rest_framework.request.Empty'>, '_files': <class 'rest_framework.request.Empty'>,
+ '_full_data': <class 'rest_framework.request.Empty'>, '_content_type': <class 'rest_framework.request.Empty'>,
+ '_stream': <class 'rest_framework.request.Empty'>, 'accepted_renderer': <rest_framework.renderers.JSONRenderer object at 0x0000022C00971510>,
+ 'accepted_media_type': 'application/json', 'version': None, 'versioning_scheme': None,'_authenticator': None,
+ '_user': <django.contrib.auth.models.AnonymousUser object at 0x0000022C009718A0>, '_auth': None}
+
+
+ serialiser.errors:
+ {'email': [ErrorDetail(string='This field is required.', code='required')],
+ 'name': [ErrorDetail(string='This field is required.', code='required')],
+ 'password': [ErrorDetail(string='This field is required.', code='required')],
+ 'password2': [ErrorDetail(string='This field is required.', code='required')],
+ 'tc': [ErrorDetail(string='This field is required.', code='required')]}
