@@ -7,8 +7,10 @@ from blog.models import BlogPost
 
 
 def index(request):
+    myposts = BlogPost.objects.all()
+    print('posttttttttt:', myposts)
     
-    return render(request, 'blog/index.html')
+    return render(request, 'blog/index.html', {'myposts':myposts})
 
 def blogpost(request, id):
     post = BlogPost.objects.filter(post_id=id)[0]

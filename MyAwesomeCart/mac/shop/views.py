@@ -83,6 +83,7 @@ def productView(request, productid):
 def checkout(request):
     if request.method == 'POST':
         item_json = request.POST.get('itemsJson')
+        amount = request.POST.get('amount')
         name = request.POST.get('name')
         email = request.POST.get('email')
         address = request.POST.get('address1') +' '+ request.POST.get('address2')
@@ -92,7 +93,7 @@ def checkout(request):
         phone = request.POST.get('phone')
 
         order = Order(
-            items_json=item_json, name=name, email=email, address=address,
+            items_json=item_json, amount=amount, name=name, email=email, address=address,
             city=city, state=state, zip_code=zip_code, phone=phone
         )
         order.save()

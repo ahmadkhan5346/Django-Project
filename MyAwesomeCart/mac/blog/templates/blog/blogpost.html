@@ -10,6 +10,7 @@
                 <h2 class="blog-post-title">{{post.heading_post}}</h2>
                 <p class="blog-post-meta">{{post.pub_date}}<a href="#"> Mark</a></p>
                 <p>{{post.content_heading_post}}</p>
+                <div class="fb-like" data-href="http://127.0.0.1:8000/blog/blogpost/{{post.post_id}}" data-width="" data-layout="" data-action="" data-size="" data-share="true"></div>
 
                
                 <h3>{{post.heading}}</h3>
@@ -18,6 +19,8 @@
 
                 <h3>{{post.sub_heading}}</h3>
                 <p>{{post.content_sub_heading}}</p>
+
+                <div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogpost/{{post.post_id}}" data-width="" data-numposts="5"></div>
             </div>
         </div>
 
