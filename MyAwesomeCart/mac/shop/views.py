@@ -3,6 +3,17 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Product, Contact, Order, OrderUpdate
 from math import ceil
+from django.views.decorators.csrf import csrf_exempt
+from paytmchecksum import PaytmChecksum
+
+# pip3 install pycryptodome
+Merchant_ID = 'QCuIPX84986814278300'
+Merchant_Key = 'fzEAM4mKN67_Os&&'
+Website = 'WEBSTAGING'
+Industry_Type = 'Retail'
+Channel_ID  = 'WEB'               # (For Website)
+Channel_ID = 'WAP'                     # (For Mobile Apps)
+request_url = 'https://securegw-stage.paytm.in/order/sendpaymentrequest'
 
 # Create your views here.
 # a=<QuerySet [{'category': 'Cleaner', 'id': 2}, {'category': 'Footware', 'id': 3}, {'category': 'Electronics', 'id': 4}]>
@@ -96,11 +107,32 @@ def checkout(request):
             items_json=item_json, amount=amount, name=name, email=email, address=address,
             city=city, state=state, zip_code=zip_code, phone=phone
         )
-        order.save()
+        # order.save()
 
         ord_update = OrderUpdate(order_id=order.order_id, update_desc="The Order has been placed")
-        ord_update.save()
+        # ord_update.save()
         thank = True
         id = order.order_id
-        return render(request, 'shop/checkout.html', {'thank':thank, 'id':id})
+        # return render(request, 'shop/checkout.html', {'thank':thank, 'id':id})
+
+        # Request paytm to transfer the amount to your account after payment by user
+        param_dict = {
+            'MID':Merchant_ID,
+            'ORDER_ID':1,
+            'TXN_AMOUNT':'1',
+            'CUST_ID':order.email,
+            'INDUSTRY_TYPE_ID':'Retail',
+            'WEBSITE':'WEBSTAGING',
+            'CHANNEL_ID':'WEB',
+            'CALLBACK_URL':'http://127.0.0.1:8000/shop/handlepayment/'
+        }
+        # print('parammmmmmmm:', param_dict)
+        return render(request, 'shop/paytm.html', {'param_dict':param_dict})
     return render(request, 'shop/checkout.html')
+
+
+# Paytm Integration payment gateway
+# Paytm will send you post request here bypass the csrf and using security checksum 
+@csrf_exempt
+def handlepayment(request):
+    return HttpResponse("done")
