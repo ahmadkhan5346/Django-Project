@@ -43,7 +43,7 @@ My Awesome Cart Tracker
 
 {% block js %}
 <script>
-    $('#trackerForm').submit(function (event) {
+    $('#trackerForm').submit(function (event) {      
 
         $('#items').empty();
         var formData = {
@@ -60,9 +60,13 @@ My Awesome Cart Tracker
         })
 
             .done(function (data) {
-                data = JSON.parse(data)
-                updates = data[0];
-                if (updates.length > 0 & updates != {}) {
+
+                $('#citems').empty();
+
+                data = JSON.parse(data);
+
+                if (data['status'] == 'success') {
+                    updates = data['updates'];
                     for (i = 0; i < updates.length; i++) {
                         let text = updates[i]['text'];
                         let time = updates[i]['time'];
@@ -71,14 +75,11 @@ My Awesome Cart Tracker
                 </li>`
                         $('#items').append(mystr)
                     }
-                }
-                else {
-                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">Sorry, We are not able to fetch this order Id and Email. Make sure to type correct order Id and Email</li>`
-                    $('#items').append(mystr)
-                }
+                
 
-                 // Fill in the order details
-                cart = JSON.parse(data[1]);
+                // Fill in the order details
+                cart = JSON.parse(data['itemsJson']);
+
                 for (item in cart){
                     let name = cart[item][1];
                     let qty = cart[item][0];
@@ -87,6 +88,15 @@ My Awesome Cart Tracker
                     </li>`
                     $('#citems').append(mystr)
                 }
+            }
+
+                else {
+                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">Sorry, We are not able to fetch this order Id and Email. Make sure to type correct order Id and Email</li>`
+                    $('#items').append(mystr)
+                    $('#citems').append(mystr)
+                }
+
+                 
             });
                 
         event.preventDefault();

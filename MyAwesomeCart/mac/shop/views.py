@@ -32,6 +32,44 @@ def index(request):
     return render(request, 'shop/index.html', params)
 
 
+def searchMatch(query, item):
+    '''return true only if query matches the item'''
+    print('searchMatch----------->', query, 'item------------>', item)
+    if query in item.description.lower() or query in item.product_name.lower() or query in item.category.lower():
+        return True
+    else:
+        return False
+
+def search(request):
+    query = request.GET.get('search')
+    all_products = []
+    category_products = Product.objects.values('category', 'product_id')
+    
+    category = {item['category'] for item in category_products}
+    print('category------------>',category)
+
+    for cat in category:
+        products = Product.objects.filter(category=cat)
+        print('product---------->', products)
+        prod = [item for item in products if searchMatch(query, item)]
+        print('prod---------->', prod)
+
+
+
+        n = len(prod)
+        print("lennnnnnnnnnnnnnn:", n)
+        n_slides = n//4 + ceil(n/4 - n//4)
+
+        if len(prod) != 0:
+            all_products.append([prod, range(1, n_slides,), n_slides])
+    params = {'allProducts': all_products, "msg":""}
+
+    if len(all_products) == 0 or len(query) < 4:
+        params = {'msg':'Please make sure to enter relevant search query'}
+    
+    return render(request, 'shop/search.html', params)
+
+
 def about(request):
     return render(request, 'shop/about.html')
 
@@ -59,20 +97,22 @@ def tracker(request):
             order = Order.objects.filter(order_id=order_id, email=email)
             if len(order) > 0:
                 update = OrderUpdate.objects.filter(order_id=order_id)
+
                 updates = []
+
                 for item in update:
-                    updates.append({'text':item.update_desc, 'time':item.timestamp})
-                response = json.dumps([updates, order[0].items_json], default=str)
+                    updates.append({'text': item.update_desc, 'time': item.timestamp})
+
+                response = json.dumps({'status':'success', 'updates':updates, 'itemsJson':order[0].items_json}, default=str)
                 return HttpResponse(response)
+            
             else:
-                return HttpResponse('{}')
+                return HttpResponse('{"status":"noitem"}')
         except Exception as e:
-            return HttpResponse('{}')
+            return HttpResponse('{"status":"Error"}')
     return render(request, 'shop/tracker.html')
 
 
-def search(request):
-    return render(request, 'shop/search.html')
 
 
 def productView(request, productid):
