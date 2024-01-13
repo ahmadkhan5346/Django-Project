@@ -1,0 +1,40 @@
+create env
+pip install django
+pip install djangorestframework
+pip install django-cors-headers
+pip install django-dotenv
+pip install psycopg2
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'test_db',
+        'USER': 'postgres',
+        'PASSWORD': 'pgadmin',
+        'HOST': '127.0.0.1',
+        'PORT': '5433',
+    }
+}
+
+in setting installapp
+"rest_framework",
+"corsheaders",
+add cors in middleware
+"corsheaders.middleware.CorsMiddleware",
+
+----------dotenv---------
+in manage.py
+import dotenv
+
+# Email Configuration
+EMAIL_BACKEND = "django.core.email.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gamil.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+EMAIL_USE_TLS = True
+
+# To use custome user model
+AUTH_USER_MODEL = 'auth.User'
+
+then create User model
+after creating user model create a serializer
