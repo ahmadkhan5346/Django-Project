@@ -32,3 +32,10 @@ class UserSerializer(serializers.ModelSerializer):
         user.is_active = False
         user.save()
         return user
+    
+    def update(self, instance, validated_data):
+        print('instance============================>', instance.name)
+        print('validated_data============================>', validated_data)
+        instance.name = validated_data.get('name', instance.name)
+        instance.save()
+        return instance

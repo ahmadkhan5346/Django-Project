@@ -123,7 +123,7 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -173,3 +173,6 @@ REST_FRAMEWORK = {
     #     'rest_framework.renderers.JSONRenderer',
     # ),
 }
+
+# Sessionid Expire default is 1209600 sec = 14 days
+SESSION_COOKIE_AGE = 1800  # 30 Minutes
