@@ -1,0 +1,4 @@
+start worker: celery -A celeryproject worker -l info
+redis server start: sudo service redis-server start
+check redis server status: sudo service redis-server status
+beat server start: celery -A celeryproject beat -l info
